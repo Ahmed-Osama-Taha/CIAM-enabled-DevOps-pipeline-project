@@ -4,8 +4,7 @@ description: CI pipeline for ahmed project CIAM enabled project
 on: [push]
 
 jobs:
-
- CI:
+  CI:
     runs-on: self-hosted
     steps:
      
