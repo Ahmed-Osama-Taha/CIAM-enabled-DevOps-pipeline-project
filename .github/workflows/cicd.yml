@@ -41,7 +41,7 @@ jobs:
           source .venv/bin/activate
           pip install -r src/feedback_backend/requirements.txt
           export PYTHONPATH="${{ github.workspace }}/src:$PYTHONPATH"
-          .venv/bin/python -m pytest ${{ github.workspace }}
+          pytest ${{ github.workspace }}
 
 
 
