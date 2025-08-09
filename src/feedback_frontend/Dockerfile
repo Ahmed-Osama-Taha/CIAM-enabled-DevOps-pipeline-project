@@ -17,7 +17,7 @@ FROM nginx:alpine
 RUN addgroup -S nodeapp && adduser -S nodeapp -G nodeapp
 
 COPY --from=build /app/build /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY src/feedback_frontend/src/nginx.conf /etc/nginx/conf.d/default.conf
 
 RUN chown -R nodeapp:nodeapp /usr/share/nginx/html
 
