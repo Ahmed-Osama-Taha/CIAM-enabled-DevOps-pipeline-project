@@ -55,7 +55,7 @@ jobs:
       - name: build docker image frontend
         uses: docker/build-push-action@v2
         with:
-          context: .
+          context: ./src/feedback_frontend/src
           file: ./src/feedback_frontend/src/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/ciam_frontend:${{github.run_number}}
