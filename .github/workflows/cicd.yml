@@ -38,8 +38,8 @@ jobs:
           python3.9 -m venv .venv
           source .venv/bin/activate
           pip install -r ./src/feedback_backend/requirements.txt
-          export PYTHONPATH=${{ github.workspace }}/src 
-          pytest
+          PYTHONPATH=src pytest
+        
 
 
       - name: login to Docker Hub
