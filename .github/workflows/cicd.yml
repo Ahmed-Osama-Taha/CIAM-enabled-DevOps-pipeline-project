@@ -38,7 +38,7 @@ jobs:
           python3.9 -m venv .venv
           source .venv/bin/activate
           pip install -r  src/feedback_backend/requirements.txt
-          PYTHONPATH=src pytest
+          pytest ${{ github.workspace }}
         
 
 
