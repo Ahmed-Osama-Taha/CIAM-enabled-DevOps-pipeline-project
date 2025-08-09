@@ -66,17 +66,14 @@ jobs:
           context: ./src/feedback_backend
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/ciam_backend:${{github.run_number}}
-
   CD:
     runs-on: self-hosted
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-
+  
       - name: Deploy to production
         run: |
           sed -i "s|image: ${{ secrets.DOCKER_USERNAME }}/ciam_backend.*|image: ${{ secrets.DOCKER_USERNAME }}/ciam_backend:${{github.run_number}}|" k8s/backend-deployment.yaml
           sed -i "s|image: ${{ secrets.DOCKER_USERNAME }}/ciam_frontend.*|image: ${{ secrets.DOCKER_USERNAME }}/ciam_frontend:${{ github.run_number }}|" k8s/frontend-deployment.yaml
-        
           kubectl apply -f k8s/
