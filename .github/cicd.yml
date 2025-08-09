@@ -1,7 +1,7 @@
 name: ahmed CI pipeline
 description: CI pipeline for ahmed project CIAM enabled project
 
-on: [workflow_dispatch]
+on: [push]
 
 jobs:
  lint:
