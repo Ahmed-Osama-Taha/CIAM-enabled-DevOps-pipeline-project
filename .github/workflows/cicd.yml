@@ -67,6 +67,7 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/ciam_backend:${{github.run_number}}
   CD:
+    needs: CI
     runs-on: self-hosted
     steps:
       - name: Checkout repository
