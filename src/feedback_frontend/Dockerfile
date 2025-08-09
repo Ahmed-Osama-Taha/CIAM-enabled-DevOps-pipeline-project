@@ -3,7 +3,7 @@ FROM node:18 AS build
 
 WORKDIR /app
 
-COPY src/feedback_frontend/src/package.json /.
+COPY src/feedback_frontend/package.json /.
 
 RUN npm install 
 
