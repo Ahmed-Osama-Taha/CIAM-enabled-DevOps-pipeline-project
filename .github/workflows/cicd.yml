@@ -56,7 +56,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./src/feedback_frontend/src
-          file: ./src/feedback_frontend/src/Dockerfile
+          file: Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/ciam_frontend:${{github.run_number}}
 
