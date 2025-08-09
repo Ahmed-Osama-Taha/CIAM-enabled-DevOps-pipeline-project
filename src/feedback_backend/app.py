@@ -5,7 +5,6 @@ import os
 app = Flask(__name__)
 
 # Database connection using hardcoded defaults and environment overrides
-
 def get_db_conn():
     return psycopg2.connect(
         host=os.environ.get('DB_HOST', 'db'),
