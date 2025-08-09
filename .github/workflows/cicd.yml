@@ -74,6 +74,7 @@ jobs:
   
       - name: Deploy to production
         run: |
+          echo "Deploying to production..."
           sed -i "s|image: ${{ secrets.DOCKER_USERNAME }}/ciam_backend.*|image: ${{ secrets.DOCKER_USERNAME }}/ciam_backend:${{github.run_number}}|" k8s/backend-deployment.yaml
           sed -i "s|image: ${{ secrets.DOCKER_USERNAME }}/ciam_frontend.*|image: ${{ secrets.DOCKER_USERNAME }}/ciam_frontend:${{ github.run_number }}|" k8s/frontend-deployment.yaml
           kubectl apply -f k8s/
