@@ -3,13 +3,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import MessageForm from './MessageForm';
 import MessageList from './MessageList';
-// any component
 import api from './api';
-
-
-
-await api.get('/messages');   // will include Authorization header
-
 
 function App() {
   const [messages, setMessages] = useState([]);
@@ -17,9 +11,8 @@ function App() {
   // Function to fetch messages from the backend
   async function fetchMessages() {
     try {
-      const response = await fetch('/api/messages');
-      const data = await response.json();
-      setMessages(data);
+      const response = await api.get('/messages'); // <-- USE api.js
+      setMessages(response.data);
     } catch (error) {
       console.error("Error fetching messages:", error);
     }
@@ -29,26 +22,20 @@ function App() {
     fetchMessages();
   }, []);
 
-  // Function to handle deletion and update state by re-fetching messages
+  // Function to handle deletion
   const handleDelete = async (id) => {
     try {
-      await fetch(`/api/message/${id}`, { method: 'DELETE' });
+      await api.delete(`/message/${id}`); // <-- USE api.js
       fetchMessages();
     } catch (error) {
       console.error("Error deleting message:", error);
     }
   };
 
-  // Update handleAddMessage to re-fetch messages rather than expecting a JSON response
+  // Function to handle adding messages
   const handleAddMessage = async (message) => {
     try {
-      await fetch('/api/message', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message }),
-      });
-      // Instead of using the empty POST response to update state,
-      // re-fetch messages from the backend.
+      await api.post('/message', { message }); // <-- USE api.js
       fetchMessages();
     } catch (error) {
       console.error("Error adding message:", error);
