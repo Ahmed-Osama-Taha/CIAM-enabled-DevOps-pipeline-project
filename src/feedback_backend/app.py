@@ -1,5 +1,5 @@
 # src/feedback_backend/app.py
-from flask import Flask, request, jsonify, g
+from flask import Flask, request, jsonify
 from prometheus_flask_exporter import PrometheusMetrics
 from flask_cors import CORS
 import psycopg2
