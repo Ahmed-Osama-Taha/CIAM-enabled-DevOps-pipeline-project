@@ -1,4 +1,8 @@
 flask
 psycopg2-binary
+flask_cors
 prometheus_flask_exporter
 flask_oidc
+PyJWT>=2.0.0
+flask-cors
+requests
