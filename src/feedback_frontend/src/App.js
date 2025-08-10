@@ -7,14 +7,17 @@ import api from './api';
 
 function App() {
   const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Function to fetch messages from the backend
+  // Fetch messages from backend
   async function fetchMessages() {
     try {
-      const response = await api.get('/messages'); // <-- USE api.js
-      setMessages(response.data);
+      const response = await api.get('/messages');
+      setMessages(response.data || []);
     } catch (error) {
       console.error("Error fetching messages:", error);
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -22,31 +25,42 @@ function App() {
     fetchMessages();
   }, []);
 
-  // Function to handle deletion
-  const handleDelete = async (id) => {
-    try {
-      await api.delete(`/message/${id}`); // <-- USE api.js
-      fetchMessages();
-    } catch (error) {
-      console.error("Error deleting message:", error);
-    }
-  };
-
-  // Function to handle adding messages
+  // Add new message
   const handleAddMessage = async (message) => {
     try {
-      await api.post('/message', { message }); // <-- USE api.js
+      await api.post('/message', { message });
       fetchMessages();
     } catch (error) {
       console.error("Error adding message:", error);
     }
   };
 
+  // Delete message
+  const handleDelete = async (id) => {
+    try {
+      await api.delete(`/message/${id}`);
+      fetchMessages();
+    } catch (error) {
+      console.error("Error deleting message:", error);
+    }
+  };
+
   return (
     <div className="App">
       <h1>Feedback App</h1>
-      <MessageForm onAddMessage={handleAddMessage} />
-      <MessageList messages={messages} onDelete={handleDelete} />
+
+      {loading ? (
+        <p>Loading messages...</p>
+      ) : (
+        <>
+          <MessageForm onAddMessage={handleAddMessage} />
+          {messages.length > 0 ? (
+            <MessageList messages={messages} onDelete={handleDelete} />
+          ) : (
+            <p>No messages yet.</p>
+          )}
+        </>
+      )}
     </div>
   );
 }
