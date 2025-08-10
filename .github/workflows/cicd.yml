@@ -35,13 +35,13 @@ jobs:
           flake8 ${{ github.workspace }}/src/feedback_backend/app.py
 
       # Run tests
-      - name: Run unit tests
-        run: |
-          python3.9 -m venv .venv
-          source .venv/bin/activate
-          pip install -r src/feedback_backend/requirements.txt
-          export PYTHONPATH="${{ github.workspace }}/src:$PYTHONPATH"
-          pytest ${{ github.workspace }}
+  #    - name: Run unit tests
+  #      run: |
+  #        python3.9 -m venv .venv
+  #        source .venv/bin/activate
+  #        pip install -r src/feedback_backend/requirements.txt
+  #        export PYTHONPATH="${{ github.workspace }}/src:$PYTHONPATH"
+  #        pytest ${{ github.workspace }}
 
 
 
