@@ -5,7 +5,7 @@ from flask_cors import CORS
 import psycopg2
 import os
 
-from auth import require_auth  # if package layout; or use "from auth import require_auth" if same dir
+from .auth import require_auth  # if package layout; or use "from auth import require_auth" if same dir
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "http://172.20.10.3:30080"}})  # replace origin or use "*" for dev
