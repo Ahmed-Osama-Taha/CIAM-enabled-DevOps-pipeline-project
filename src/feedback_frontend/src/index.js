@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';  // Global styles
+import './index.css';
 import App from './App';
 import keycloak from './keycloak';
 
@@ -9,9 +9,12 @@ keycloak.init({ onLoad: 'login-required', checkLoginIframe: false })
     if (!authenticated) {
       keycloak.login();
     } else {
+      // Save token so fetch() calls can use it
+      window.keycloak = keycloak;
+
       ReactDOM.render(
         <React.StrictMode>
-          <App keycloak={keycloak} />
+          <App />
         </React.StrictMode>,
         document.getElementById('root')
       );

@@ -6,3 +6,4 @@ flask_oidc
 PyJWT>=2.0.0
 flask-cors
 requests
+python-keycloak

@@ -24,7 +24,8 @@ jobs:
           python3.9 -m venv .venv
           source .venv/bin/activate
           python -m pip install --upgrade pip
-          pip install flake8 pytest black flask-oidc requests PyJWT flask-cors
+          pip install flake8 pytest black flask-oidc requests PyJWT flask-cors 
+
 
       # Lint code
       - name: Run linter
