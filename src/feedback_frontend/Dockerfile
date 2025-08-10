@@ -3,6 +3,7 @@ FROM node:18 AS build
 WORKDIR /app
 COPY src/package.json ./
 RUN npm install
+RUN npm install keycloak-js axios
 COPY . .
 RUN npm run build
 

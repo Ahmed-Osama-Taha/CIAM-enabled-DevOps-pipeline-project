@@ -3,6 +3,13 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import MessageForm from './MessageForm';
 import MessageList from './MessageList';
+// any component
+import api from './api';
+
+
+
+await api.get('/messages');   // will include Authorization header
+
 
 function App() {
   const [messages, setMessages] = useState([]);
