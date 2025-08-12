@@ -1,4 +1,4 @@
-// App.js
+// App.js - Updated Routes Section
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import './App.css';
@@ -7,6 +7,22 @@ import MessageList from './MessageList';
 import { AuthProvider, useAuth } from './AuthContext';
 import LoginPage from './LoginPage';
 import CallbackPage from './CallbackPage';
+import authService from './AuthService';
+
+// Silent callback component
+const SilentCallback = () => {
+  useEffect(() => {
+    authService.handleSilentCallback()
+      .then(() => {
+        console.log('Silent renewal successful');
+      })
+      .catch(error => {
+        console.error('Silent renewal failed:', error);
+      });
+  }, []);
+
+  return <div>Renewing session...</div>;
+};
 
 // Protected component that requires authentication
 const ProtectedApp = () => {
@@ -121,7 +137,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/callback" element={<CallbackPage />} />
-          <Route path="/silent-callback" element={<div>Renewing session...</div>} />
+          <Route path="/silent-callback" element={<SilentCallback />} />
           <Route path="/" element={<ProtectedApp />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>

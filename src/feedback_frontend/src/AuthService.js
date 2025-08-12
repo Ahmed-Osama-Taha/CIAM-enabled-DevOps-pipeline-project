@@ -4,15 +4,15 @@ import { UserManager, WebStorageStateStore } from 'oidc-client-ts';
 class AuthService {
   constructor() {
     const settings = {
-      authority: 'http://172.20.10.3:31830/realms/feedback-realm', // Your Keycloak realm
+      authority: 'http://172.20.10.3:31830/realms/feedback-realm',
       client_id: 'feedback_frontend',
-      redirect_uri: 'http://172.20.10.5:30080/',
+      redirect_uri: 'http://172.20.10.5:30080/callback',  // Changed to /callback
       post_logout_redirect_uri: 'http://172.20.10.5:30080',
       response_type: 'code',
       scope: 'openid profile email',
       userStore: new WebStorageStateStore({ store: window.localStorage }),
       automaticSilentRenew: true,
-      silent_redirect_uri: 'http://172.20.10.5:30080/callback'
+      silent_redirect_uri: 'http://172.20.10.5:30080/silent-callback'  // Fixed path
     };
 
     this.userManager = new UserManager(settings);
@@ -28,7 +28,7 @@ class AuthService {
 
     this.userManager.events.addAccessTokenExpired(() => {
       console.log('Access token expired');
-      this.login();
+      this.renewToken(); // Use renewToken instead of login for expired tokens
     });
   }
 
@@ -45,6 +45,11 @@ class AuthService {
   // Handle redirect callback
   handleCallback() {
     return this.userManager.signinRedirectCallback();
+  }
+
+  // Handle silent callback
+  handleSilentCallback() {
+    return this.userManager.signinSilentCallback();
   }
 
   // Get current user
