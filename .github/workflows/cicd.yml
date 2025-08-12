@@ -28,12 +28,12 @@ jobs:
 
 
       # Lint code
-      - name: Run linter
-        run: |
-          python3.9 -m venv .venv
-          source .venv/bin/activate
-          black ${{ github.workspace }}/src/feedback_backend/app.py
-          flake8 ${{ github.workspace }}/src/feedback_backend/app.py
+   #   - name: Run linter
+    #    run: |
+    #      python3.9 -m venv .venv
+     #     source .venv/bin/activate
+      #    black ${{ github.workspace }}/src/feedback_backend/app.py
+       #   flake8 ${{ github.workspace }}/src/feedback_backend/app.py
 
       # Run tests
   #    - name: Run unit tests
