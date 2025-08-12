@@ -4,15 +4,15 @@ import { UserManager, WebStorageStateStore } from 'oidc-client-ts';
 class AuthService {
   constructor() {
     const settings = {
-      authority: 'http://localhost:8080/realms/feedback-realm', // Your Keycloak realm
+      authority: 'http://172.20.10.5:8080/realms/feedback-realm', // Your Keycloak realm
       client_id: 'feedback_frontend',
-      redirect_uri: 'http://localhost:3000/callback',
-      post_logout_redirect_uri: 'http://localhost:3000',
+      redirect_uri: 'http://172.20.10.5:30080/callback',
+      post_logout_redirect_uri: 'http://172.20.10.5:30080',
       response_type: 'code',
       scope: 'openid profile email',
       userStore: new WebStorageStateStore({ store: window.localStorage }),
       automaticSilentRenew: true,
-      silent_redirect_uri: 'http://localhost:3000/silent-callback'
+      silent_redirect_uri: 'http://172.20.10.5:30080/silent-callback'
     };
 
     this.userManager = new UserManager(settings);
