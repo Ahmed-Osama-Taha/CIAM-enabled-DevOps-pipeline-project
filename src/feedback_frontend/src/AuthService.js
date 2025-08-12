@@ -6,13 +6,13 @@ class AuthService {
     const settings = {
       authority: 'http://172.20.10.3:31830/realms/feedback-realm', // Your Keycloak realm
       client_id: 'feedback_frontend',
-      redirect_uri: 'http://172.20.10.5:30080/callback',
+      redirect_uri: 'http://172.20.10.5:30080/',
       post_logout_redirect_uri: 'http://172.20.10.5:30080',
       response_type: 'code',
       scope: 'openid profile email',
       userStore: new WebStorageStateStore({ store: window.localStorage }),
       automaticSilentRenew: true,
-      silent_redirect_uri: 'http://172.20.10.5:30080/silent-callback'
+      silent_redirect_uri: 'http://172.20.10.5:30080/callback'
     };
 
     this.userManager = new UserManager(settings);
