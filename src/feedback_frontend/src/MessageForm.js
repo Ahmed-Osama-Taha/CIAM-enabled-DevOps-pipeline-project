@@ -3,34 +3,37 @@ import React, { useState } from 'react';
 
 const MessageForm = ({ onAddMessage }) => {
   const [message, setMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!message.trim()) return;
-    onAddMessage(message);
-    setMessage('');
+    if (!message.trim() || isSubmitting) return;
+    
+    setIsSubmitting(true);
+    try {
+      await onAddMessage(message);
+      setMessage('');
+    } catch (error) {
+      console.error('Error submitting message:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ marginBottom: '15px' }}>
+    <form onSubmit={handleSubmit}>
       <input
         type="text"
         value={message}
         onChange={(e) => setMessage(e.target.value)}
         placeholder="Enter your feedback"
-        style={{ padding: '8px', width: '300px', marginRight: '10px' }}
+        disabled={isSubmitting}
       />
       <button
         type="submit"
-        style={{
-          padding: '8px 16px',
-          backgroundColor: '#4CAF50',
-          color: 'white',
-          border: 'none',
-          cursor: 'pointer'
-        }}
+        disabled={isSubmitting || !message.trim()}
       >
-        Submit
+        {isSubmitting ? 'Submitting...' : 'Submit'}
       </button>
     </form>
   );
